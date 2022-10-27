@@ -173,6 +173,16 @@ module Fluent
         end
       end
     end
+    
+    class GeographyFieldSchema < FieldSchema
+      def type
+        :geography
+      end
+
+      def format_one(value)
+          value.to_s
+      end
+    end
 
     class RecordSchema < FieldSchema
       FIELD_TYPES = {
@@ -185,7 +195,8 @@ module Fluent
         date: DateFieldSchema,
         datetime: DateTimeFieldSchema,
         time: TimeFieldSchema,
-        record: RecordSchema
+        record: RecordSchema,
+        geography: GeographyFieldSchema
       }.freeze
 
       def initialize(name, mode = :nullable)
